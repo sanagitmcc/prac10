@@ -1,0 +1,486 @@
+/*
+Predicate-Based Programs
+SWI-Prolog / GitHub Friendly
+*/
+
+1) BATSMAN -> CRICKETER -> SPORTSMAN -> FAMOUS PERSON
+
+batsman(sachin).
+batsman(virat).
+batsman(rohit).
+batsman(dhoni).
+
+cricketer(X) :- batsman(X).
+sportsman(X) :- cricketer(X).
+famous_person(X) :- sportsman(X).
+
+Output:
+1 ?- cricketer(sachin).
+true.
+
+2 ?- sportsman(virat).
+true.
+
+3 ?- famous_person(X).
+X = sachin ;
+X = virat ;
+X = rohit ;
+X = dhoni.
+
+
+2) TEACHER -> EMPLOYEE -> HUMAN -> LIVING BEING
+
+teacher(anita).
+teacher(raj).
+teacher(meera).
+teacher(rahul).
+
+employee(X) :- teacher(X).
+human(X) :- employee(X).
+living_being(X) :- human(X).
+
+Output:
+1 ?- human(anita).
+true.
+
+2 ?- living_being(rahul).
+true.
+
+3 ?- human(X).
+X = anita ;
+X = raj ;
+X = meera ;
+X = rahul.
+
+
+3) STUDENT -> LEARNER -> KNOWLEDGE SEEKER -> FUTURE PROFESSIONAL
+
+student(riya).
+student(amit).
+student(sam).
+student(neha).
+
+learner(X) :- student(X).
+knowledge_seeker(X) :- learner(X).
+future_professional(X) :- knowledge_seeker(X).
+
+Output:
+1 ?- learner(riya).
+true.
+
+2 ?- future_professional(amit).
+true.
+
+3 ?- knowledge_seeker(X).
+X = riya ;
+X = amit ;
+X = sam ;
+X = neha.
+
+4) DOG -> ANIMAL -> PET -> LIVING BEING
+
+dog(tommy).
+dog(bruno).
+dog(lucky).
+dog(rocky).
+
+animal(X) :- dog(X).
+pet(X) :- animal(X).
+dog_living_being(X) :- pet(X).
+
+Output:
+1 ?- pet(tommy).
+true.
+
+2 ?- dog_living_being(bruno).
+true.
+
+3 ?- dog_living_being(X).
+X = tommy ;
+X = bruno ;
+X = lucky ;
+X = rocky.
+
+
+
+5) BOOK -> KNOWLEDGE SOURCE -> EDUCATIONAL MATERIAL -> VALUABLE RESOURCE
+
+book(physics).
+book(math).
+book(history).
+book(computer).
+
+knowledge_source(X) :- book(X).
+educational_material(X) :- knowledge_source(X).
+valuable_resource(X) :- educational_material(X).
+
+Output:
+1 ?- educational_material(math).
+true.
+
+2 ?- valuable_resource(physics).
+true.
+
+3 ?- valuable_resource(X).
+X = physics ;
+X = math ;
+X = history ;
+X = computer.
+
+
+6) FAMILY CHART
+
+male(john).
+male(mike).
+male(david).
+
+female(lisa).
+female(susan).
+female(anna).
+
+parent(john, mike).
+parent(john, lisa).
+parent(susan, mike).
+parent(susan, lisa).
+parent(mike, david).
+parent(anna, david).
+
+father(X, Y) :-
+    male(X),
+    parent(X, Y).
+
+mother(X, Y) :-
+    female(X),
+    parent(X, Y).
+
+grandfather(X, Y) :-
+    male(X),
+    parent(X, Z),
+    parent(Z, Y).
+
+grandmother(X, Y) :-
+    female(X),
+    parent(X, Z),
+    parent(Z, Y).
+
+sibling(X, Y) :-
+    parent(P, X),
+    parent(P, Y),
+    X \= Y.
+
+Output:
+1. Check if John is the father of Mike:
+?- father(john, mike).
+
+Output:
+true.
+
+2. Check if Susan is the mother of Lisa:
+?- mother(susan, lisa).
+
+Output:
+true.
+
+3. Find the father of Mike:
+?- father(X, mike).
+
+Output:
+X = john.
+
+4. Find the mother of Lisa:
+?- mother(X, lisa).
+
+Output:
+X = susan.
+
+5. Find the grandfather of David:
+?- grandfather(X, david).
+
+Output:
+X = john.
+
+6. Find the grandmother of David:
+?- grandmother(X, david).
+
+Output:
+X = susan.
+
+7. Check if Mike and Lisa are siblings:
+?- sibling(mike, lisa).
+
+Output:
+true.
+
+8. Find all children of John:
+?- parent(john, X).
+
+Output:
+X = mike ;
+X = lisa.
+
+9. Find all children of Susan:
+?- parent(susan, X).
+
+Output:
+X = mike ;
+X = lisa.
+
+10. Find all parents of David:
+?- parent(X, david).
+
+Output:
+X = mike ;
+X = anna.
+
+11. Find all siblings of Mike:
+?- sibling(X, mike).
+
+Output:
+X = lisa.
+
+12. Find all siblings of Lisa:
+?- sibling(X, lisa).
+
+Output:
+X = mike.
+
+SWI-PROLOG PROGRAM RUNNING STEPS
+=================================
+
+1. Install SWI-Prolog.
+
+2. Open SWI-Prolog.
+
+3. Go to:
+   File -> New
+
+4. A new editor window will open.
+
+5. Write/Paste the complete Prolog program into the editor.
+
+6. Save the file with .pl extension.
+
+   Example:
+   predicate_programs.pl
+
+   IMPORTANT:
+   Remember the folder where you saved the file.
+
+   Example:
+   C:\Users\YourName\Desktop\Prolog\predicate_programs.pl
+
+7. Go back to the main SWI-Prolog console window.
+
+8. Make sure SWI-Prolog is working in the SAME folder where the .pl
+   file is saved.
+
+   Check the current folder using:
+
+   ?- working_directory(CWD, CWD).
+
+9. If the current folder is NOT the folder where your .pl file is saved,
+   change it using:
+
+   ?- working_directory(_, 'C:/Users/YourName/Desktop/Prolog').
+
+   IMPORTANT:
+   Replace the path with the actual folder where your .pl file is saved.
+
+10. Now load the program:
+
+    ?- consult('predicate_programs.pl').
+
+11. Press Enter.
+
+12. If the program is loaded correctly, you will see:
+
+    true.
+
+13. If you get an error such as:
+
+    ERROR: source_sink `predicate_programs.pl' does not exist
+
+    It means SWI-Prolog cannot find the file.
+
+    Check:
+    - File is saved with .pl extension
+    - File name is correct
+    - SWI-Prolog is in the correct folder
+    - The path is correct
+
+14. Alternative easy method:
+    In SWI-Prolog console, use:
+
+    File -> Consult...
+
+    Select your .pl file.
+
+    This avoids typing the complete file path manually.
+
+15. Now run a query.
+
+    Example 1:
+
+    ?- cricketer(sachin).
+
+    Output:
+
+    true.
+
+16. You can also ask Prolog to find a value.
+
+    Example 2:
+
+    ?- famous_person(X).
+
+    Output:
+
+    X = sachin ;
+    X = virat ;
+    X = rohit ;
+    X = dhoni.
+
+17. For the family program, examples are:
+
+    ?- father(X, mike).
+
+    ?- mother(X, anna).
+
+    ?- grandfather(X, david).
+
+    ?- sibling(X, anna).
+
+18. If Prolog gives one answer and you want another answer,
+    press:
+
+    ;
+
+19. If there are no more answers, Prolog will show:
+
+    false.
+
+20. If you want to stop a running query:
+
+    Ctrl + C
+
+21. If you modify the program:
+
+    - Edit the .pl file
+    - Save the file
+    - Return to SWI-Prolog
+    - Reload using:
+
+      ?- make.
+
+22. To exit SWI-Prolog:
+
+    ?- halt.
+
+    OR simply close the SWI-Prolog window.
+
+
+IMPORTANT PROLOG RULES
+======================
+
+1. Prolog files must end with:
+
+   .pl
+
+2. Every fact and rule must end with:
+
+   .
+
+3. Queries are entered in the SWI-Prolog console.
+
+4. Do NOT type ?- inside the program file.
+
+5. Variables normally start with a CAPITAL letter or underscore.
+
+6. Predicate names normally start with a lowercase letter.
+
+
+EXAMPLE PROGRAM
+===============
+
+male(john).
+parent(john, mike).
+
+father(X, Y) :-
+    male(X),
+    parent(X, Y).
+
+
+QUERY
+=====
+
+?- father(X, mike).
+
+
+EXPECTED OUTPUT
+===============
+
+X = john.
+
+
+FULL PRACTICAL EXAM PROCEDURE
+=============================
+
+Open SWI-Prolog
+       ↓
+File -> New
+       ↓
+Write/Paste Prolog program
+       ↓
+Save as program.pl
+       ↓
+Remember the folder location
+       ↓
+Go to SWI-Prolog console
+       ↓
+Check folder:
+
+?- working_directory(CWD, CWD).
+
+       ↓
+If required, change folder:
+
+?- working_directory(_, 'C:/Users/YourName/Desktop/Prolog').
+
+       ↓
+Load program:
+
+?- consult('program.pl').
+
+       ↓
+true.
+       ↓
+Enter required query
+       ↓
+See output
+
+
+EASIEST METHOD DURING PRACTICAL EXAM
+====================================
+
+1. Open SWI-Prolog.
+2. File -> New.
+3. Write/Paste the program.
+4. Save as:
+
+   program.pl
+
+5. Go to console.
+6. Use:
+
+   File -> Consult...
+
+7. Select your program.pl file.
+8. After seeing:
+
+   true.
+
+9. Enter the required query.
+10. Press ; for the next answer.
+11. Press Ctrl + C to stop a query.
+12. Use ?- make. after modifying the program.
+13. Use ?- halt. to exit.
